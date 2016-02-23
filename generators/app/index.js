@@ -54,16 +54,16 @@ module.exports = generators.Base.extend({
         message: 'Your project name',
         default: this.appname
       },
-      {
-        type: 'list',
-        name: 'router',
-        message: 'Which Router do you want to use?',
-        choices: [
-          'No routing',
-          'React Router',
-          'Router5'
-        ]
-      },
+      // {
+      //   type: 'list',
+      //   name: 'router',
+      //   message: 'Which Router do you want to use?',
+      //   choices: [
+      //     'No routing',
+      //     'React Router',
+      //     'Router5'
+      //   ]
+      // },
       {
         type: 'list',
         name: 'flexbox',
@@ -151,7 +151,7 @@ module.exports = generators.Base.extend({
 
     dependencies = dependencies.concat([this.props.time])
                                .concat(cssDependencies)
-                               .concat(routerDependencies[this.props.router]);
+                               .concat(routerDependencies['Router5']);
 
     this.npmInstall(dependencies, { 'save': true });
 
@@ -173,7 +173,7 @@ module.exports = generators.Base.extend({
       'assets-webpack-plugin',
       'clean-webpack-plugin',
       'babel-polyfill',
-      'eslint@1.10.3',
+      'eslint',
       'eslint-loader',
       'eslint-plugin-react',
       'eslint-config-airbnb'

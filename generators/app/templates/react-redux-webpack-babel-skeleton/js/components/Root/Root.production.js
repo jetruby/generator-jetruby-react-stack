@@ -5,13 +5,13 @@ import App from 'components/App'
 
 export default class Root extends Component {
   render() {
-    const { store, router } = this.props;
+    const { store, router } = this.props
 
     return (
       <div>
         <Provider store={store}>
           <RouterProvider router={router}>
-            <App/>
+            <App />
           </RouterProvider>
         </Provider>
       </div>

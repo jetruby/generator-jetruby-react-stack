@@ -11,7 +11,7 @@ export default class Root extends Component {
       <div>
         <Provider store={store}>
           <RouterProvider router={router}>
-            <App/>
+            <App />
           </RouterProvider>
         </Provider>
       </div>
