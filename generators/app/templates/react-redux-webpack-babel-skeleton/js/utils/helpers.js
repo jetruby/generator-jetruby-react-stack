@@ -24,3 +24,8 @@ export const appendUniqWithOrderById = appendUniqWithOrderBy('id')
 export const findBy = R.curry((propObj, list) => (
   R.find(R.allPass(R.map((pair) => R.propEq(pair[0], pair[1]), R.toPairs(propObj))), list)
 ))
+
+export const segmentOf = R.curry((index, str) => R.split('.', str)[index])
+export const firstSegment = segmentOf(0)
+
+export const capitalizeFirstLetter = (str = '') => str.charAt(0).toUpperCase() + str.slice(1)
