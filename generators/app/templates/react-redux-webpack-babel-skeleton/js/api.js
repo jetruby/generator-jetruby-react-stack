@@ -1,15 +1,14 @@
-// Endpoints for API
-// using services/endpoint.js
+import Repoint from 'repoint'
+import { camelizeKeys } from 'humps'
+import constants from 'constants'
 
-import { endpoint } from 'services/endpoint'
+const repoint = new Repoint({
+  host: constants.API_HOST,
+  beforeSuccess: (data) => camelizeKeys(data)
+})
 
-export const usersAPI = endpoint('users')
+const users = repoint.generate('users')
 
-// and then you have the following methods:
-//
-// usersAPI.getCollection
-// usersAPI.get
-// usersAPI.create
-// usersAPI.update
-// usersAPI.destroy
-//
+export {
+  users
+}

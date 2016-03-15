@@ -6,10 +6,9 @@ import createRouter from 'router/createRouter'
 import Root from 'components/Root'
 
 const router = createRouter()
+const store = configureStore(router)
 
 router.start((err, state) => {
-  const store = configureStore(router, { router: { route: state } })
-
   render(
     <Root store={store} router={router} />,
     document.getElementById('app')

@@ -8,8 +8,8 @@ import sagaMiddleware from 'redux-saga'
 export default function configureStore(router, initialState) {
   const finalCreateStore = compose(
     applyMiddleware(
-      sagaMiddleware(rootSaga),
-      router5Middleware(router)
+      router5Middleware(router),
+      sagaMiddleware(rootSaga)
     )
   )(createStore)
 

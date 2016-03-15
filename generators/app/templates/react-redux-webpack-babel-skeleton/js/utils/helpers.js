@@ -29,3 +29,5 @@ export const segmentOf = R.curry((index, str) => R.split('.', str)[index])
 export const firstSegment = segmentOf(0)
 
 export const capitalizeFirstLetter = (str = '') => str.charAt(0).toUpperCase() + str.slice(1)
+export const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+export const noop = () => {}

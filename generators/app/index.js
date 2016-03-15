@@ -24,7 +24,7 @@ module.exports = generators.Base.extend({
       "build:staging": "webpack --config webpack/webpack.staging.config.js",
       "analyze:production": "NODE_ENV=production webpack --config webpack/webpack.production.config.js --json | analyze-bundle-size",
       "analyze:staging": "webpack --config webpack/webpack.staging.config.js --json | analyze-bundle-size",
-      "test": "echo 'to be defined...'",
+      "test": "APP_ENV=test NODE_PATH=./js babel-node test/index.js | tap-spec",
       "deploy:production": "echo 'to be defined...'",
       "deploy:staging": "echo 'to be defined...'",
       "lint": "echo 'to be defined...'"
@@ -136,7 +136,9 @@ module.exports = generators.Base.extend({
       'path-parser',
       'humps',
       'jquery-param',
-      'pluralize'
+      'pluralize',
+      'repoint',
+      'node-localstorage'
     ];
 
     var cssDependencies = [];
@@ -180,7 +182,8 @@ module.exports = generators.Base.extend({
     ];
 
     var testDependencies = [
-      'mocha',
+      'tape',
+      'tap-spec',
       'enzyme',
       'sinon'
     ];

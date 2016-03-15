@@ -41,7 +41,8 @@ config.plugins.push(
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify("staging")
+      'NODE_ENV': JSON.stringify("production"),
+      'APP_ENV': JSON.stringify("staging")
     }
   }),
   assetsPluginInstance
