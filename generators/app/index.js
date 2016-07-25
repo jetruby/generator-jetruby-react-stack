@@ -6,7 +6,7 @@ var path       = require('path');
 var routerDependencies = {
   'No routing':   [],
   'React Router': ['react-router', 'redux-simple-router'],
-  'Router5':      ['router5', 'redux-router5', 'react-router5', 'router5-history']
+  'Router5':      ['router5', 'redux-router5', 'react-router5', 'router5-history', 'router5-listeners']
 }
 
 module.exports = generators.Base.extend({
@@ -138,7 +138,8 @@ module.exports = generators.Base.extend({
       'jquery-param',
       'pluralize',
       'repoint',
-      'node-localstorage'
+      'node-localstorage',
+      'react-css-modules'
     ];
 
     var cssDependencies = [];
@@ -160,6 +161,8 @@ module.exports = generators.Base.extend({
     var devDependencies = [
       'webpack',
       'webpack-dev-server',
+      'babel-plugin-transform-es2015-destructuring',
+      'babel-plugin-transform-object-rest-spread',
       'babel-core',
       'babel-loader',
       'babel-preset-es2015',
@@ -175,10 +178,12 @@ module.exports = generators.Base.extend({
       'assets-webpack-plugin',
       'clean-webpack-plugin',
       'babel-polyfill',
-      'eslint',
+      'eslint@^2.9.0',
       'eslint-loader',
       'eslint-plugin-react',
-      'eslint-config-airbnb'
+      'eslint-config-airbnb',
+      'eslint-plugin-import',
+      'eslint-plugin-jsx-a11y@^1.2.0'
     ];
 
     var testDependencies = [

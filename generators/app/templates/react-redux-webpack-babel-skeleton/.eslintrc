@@ -12,10 +12,16 @@
     "no-multi-spaces": [2, { exceptions: { "ImportDeclaration": true, "VariableDeclarator": true } }],
     "no-param-reassign": [2, { "props": false }],
     "quote-props": [2, "consistent-as-needed"],
-    "no-constant-condition": 0
+    "no-constant-condition": 0,
+    "no-empty-function": 0,
+    "import/no-unresolved": 0,
+    "new-cap": 0
   },
-  "ecmaFeatures": {
-    "classes": true,
-    "generators": true
-  }
+  "parserOptions": {
+    "ecmaFeatures": {
+      "classes": true,
+      "generators": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
 }

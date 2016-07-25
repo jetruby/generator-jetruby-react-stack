@@ -16,5 +16,5 @@ export default function createRouter(routes) {
     .usePlugin(historyPlugin())
     .usePlugin(listenersPlugin())
 
-  return router;
-};
+  return router
+}
