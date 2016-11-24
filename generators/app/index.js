@@ -5,7 +5,7 @@ var path       = require('path');
 
 var routerDependencies = {
   'No routing':   [],
-  'React Router': ['react-router', 'redux-simple-router'],
+  'React Router': ['react-router', 'react-router-redux'],
   'Router5':      ['router5', 'redux-router5', 'react-router5', 'router5-history', 'router5-listeners']
 }
 
@@ -19,7 +19,7 @@ module.exports = generators.Base.extend({
   configuring: function() {
     // Generate our package.json. Make sure to also include the required dependencies for styles
     var scripts = {
-      "dev": "webpack-dev-server --config webpack/webpack.development.config.js --hot --colors --progress --inline",
+      "dev": "webpack-dev-server --config webpack/webpack.development.config.js --hot --colors --progress --inline --history-api-fallback",
       "build:production": "NODE_ENV=production webpack --config webpack/webpack.production.config.js",
       "build:staging": "webpack --config webpack/webpack.staging.config.js",
       "analyze:production": "NODE_ENV=production webpack --config webpack/webpack.production.config.js --json | analyze-bundle-size",
@@ -154,19 +154,21 @@ module.exports = generators.Base.extend({
 
     dependencies = dependencies.concat([this.props.time])
                                .concat(cssDependencies)
-                               .concat(routerDependencies['Router5']);
+                               .concat(routerDependencies['React Router']);
 
     this.npmInstall(dependencies, { 'save': true });
 
     var devDependencies = [
       'webpack',
       'webpack-dev-server',
-      'babel-plugin-transform-es2015-destructuring',
-      'babel-plugin-transform-object-rest-spread',
       'babel-core',
       'babel-loader',
+      'babel-plugin-transform-es2015-destructuring',
+      'babel-plugin-transform-object-rest-spread',
+      'babel-polyfill',
       'babel-preset-es2015',
       'babel-preset-react',
+      'babel-preset-stage-0',
       'postcss-loader',
       'autoprefixer',
       'style-loader',
@@ -178,12 +180,12 @@ module.exports = generators.Base.extend({
       'assets-webpack-plugin',
       'clean-webpack-plugin',
       'babel-polyfill',
-      'eslint@^2.9.0',
-      'eslint-loader',
-      'eslint-plugin-react',
-      'eslint-config-airbnb',
-      'eslint-plugin-import',
-      'eslint-plugin-jsx-a11y@^1.2.0'
+      'eslint@^3.8.1',
+      'eslint-config-airbnb@^12.0.0',
+      'eslint-loader@^1.6.0',
+      'eslint-plugin-import@^1.16.0',
+      'eslint-plugin-jsx-a11y@^2.2.3',
+      'eslint-plugin-react@^6.4.1'
     ];
 
     var testDependencies = [
