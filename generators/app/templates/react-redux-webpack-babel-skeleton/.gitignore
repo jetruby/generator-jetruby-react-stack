@@ -3,3 +3,4 @@ npm-debug.log
 /dist
 /.idea
 /tmp
+/mock-server/node_modules
