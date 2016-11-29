@@ -14,11 +14,9 @@ module.exports = generators.Base.extend({
     this.log(chalk.bold.green('--------------------------------------------------------------------------------'));
     this.log(chalk.bold.green('|                        Welcome to JetReact starter-kit                       |'));
     this.log(chalk.bold.green('--------------------------------------------------------------------------------\n'));
-    this.log(chalk.bold.yellow('This generator will walk you through installing a Babel, React, Redux, Webpack application.\n'));
+    this.log(chalk.bold.yellow('This generator will walk you through installing a Babel, React, Redux, Webpack, GraphQl application.\n'));
 
-    this.composeWith('jetruby-react-stack1:react-apollo-graphql', { options: {
-      rjs: true
-    }});
+    this.composeWith('jetruby-react-stack1:react-apollo-graphql', { options: { rjs: true } });
   },
   prompting: function() {
     var done = this.async();
@@ -89,7 +87,8 @@ module.exports = generators.Base.extend({
       "production-build-client": "webpack --config webpack/webpack.client.production.config.js --colors --display-error-details",
       "production-build-server": "webpack --config webpack/webpack.server.production.config.js --colors --display-error-details",
       "production-build": "npm-run-all --parallel production-build-client production-build-server",
-      "production": "node ./start-server"
+      "production": "node ./start-server",
+      "graphql-mock-server": "node ./graphql-mock-server/server.js"
     };
 
     var packageSettings = {

@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
-import createRootReducer from 'reducers'
+import rootReducer from 'reducers'
 import sagaMiddleware from 'middlewares/sagaMiddleware'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 
-export default function configureStore({ history, apolloClient }, initialState) {
+export default function configureStore({ history }, initialState) {
   const loggerMiddleware = createLogger({ duration: true })
 
   const finalCreateStore = compose(
@@ -15,5 +15,5 @@ export default function configureStore({ history, apolloClient }, initialState) 
     )
   )(createStore)
 
-  return finalCreateStore(createRootReducer(apolloClient), initialState)
+  return finalCreateStore(rootReducer, initialState)
 }

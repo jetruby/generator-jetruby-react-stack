@@ -6,11 +6,6 @@ var path       = require('path');
 
 module.exports = generators.Base.extend({
   initializing: function() {
-    this.log(chalk.bold.green('--------------------------------------------------------------------------------'));
-    this.log(chalk.bold.green('|                        Welcome to Ract-GraphQl starter-kit                       |'));
-    this.log(chalk.bold.green('--------------------------------------------------------------------------------\n'));
-    this.log(chalk.bold.yellow('This generator will walk you through installing a Ract-GraphQl application addition.\n'));
-
     this.conflicter.force = true
   },
   prompting: function() {
@@ -34,6 +29,8 @@ module.exports = generators.Base.extend({
   writing: function() {
     if (this.props.graphql === 'No'|| !this.props.graphql) return;
 
+    this.composeWith('jetruby-react-stack1:graphql-mock-server', { options: { rjs: true } });
+
     var baseTemplatePath = this.templatePath('react-apollo-graphql-skeleton');
 
     // Get all files in our repo and copy the ones we should
@@ -53,7 +50,6 @@ module.exports = generators.Base.extend({
   install: function() {
     if (this.props.graphql === 'No'|| !this.props.graphql) return;
 
-    this.log(chalk.bold.yellow('Installing graphql dependencies...\n'));
     var dependencies = [
       'react-apollo',
       'apollo-client',

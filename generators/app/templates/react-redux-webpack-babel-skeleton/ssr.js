@@ -76,7 +76,7 @@ export default function (parameters) {
           const raw = renderToString(
             <HTML
               content={content}
-              store={context.store}
+              store={store}
               jsBuildPath={jsBuildPath}
               cssBuildPath={cssBuildPath}
             />
