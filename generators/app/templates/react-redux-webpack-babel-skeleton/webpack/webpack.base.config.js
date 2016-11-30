@@ -12,12 +12,6 @@ module.exports = {
   },
 
   resolve: {
-    root: [
-            path.join(__dirname, "../js"),
-            path.join(__dirname, "../styles"),
-            path.join(__dirname, "../images"),
-          ],
-
     alias: {
       styles:      path.resolve(__dirname, '../styles'),
       reducers:    path.resolve(__dirname, '../js/reducers'),
