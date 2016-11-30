@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import currentUser from 'reducers/currentUser'
-import { router5Reducer } from 'redux-router5'
+import { routerReducer } from 'react-router-redux'
 
 const rootReducer = combineReducers({
-  router: router5Reducer,
+  routing: routerReducer,
   currentUser
 })
 

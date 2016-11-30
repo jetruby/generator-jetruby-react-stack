@@ -1,19 +1,20 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import rootReducer from 'reducers'
-import { router5Middleware } from 'redux-router5'
 import sagaMiddleware from 'middlewares/sagaMiddleware'
+import { routerMiddleware } from 'react-router-redux'
 
-export default function configureStore(router, initialState) {
+export default function configureStore({ history }, initialState) {
   const loggerMiddleware = createLogger({ duration: true })
 
   const finalCreateStore = compose(
     applyMiddleware(
-      router5Middleware(router),
       loggerMiddleware,
+      routerMiddleware(history),
       sagaMiddleware
     )
   )(createStore)
 
   return finalCreateStore(rootReducer, initialState)
 }
+

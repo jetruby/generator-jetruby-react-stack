@@ -12,11 +12,21 @@ module.exports = {
   },
 
   resolve: {
-    root: [
-            path.join(__dirname, "../js"),
-            path.join(__dirname, "../styles"),
-            path.join(__dirname, "../images")
-          ],
+    alias: {
+      styles:      path.resolve(__dirname, '../styles'),
+      reducers:    path.resolve(__dirname, '../js/reducers'),
+      store:       path.resolve(__dirname, '../js/store'),
+      constants:   path.resolve(__dirname, '../js/constants'),
+      middlewares: path.resolve(__dirname, '../js/middlewares'),
+      components:  path.resolve(__dirname, '../js/components'),
+      containers:  path.resolve(__dirname, '../js/containers'),
+      pages:       path.resolve(__dirname, '../js/pages'),
+      sagas:       path.resolve(__dirname, '../js/sagas'),
+      services:    path.resolve(__dirname, '../js/services'),
+      utils:       path.resolve(__dirname, '../js/utils'),
+      src:         path.resolve(__dirname, '../js')
+    },
+
     extensions: [
       "",
       ".webpack.js",

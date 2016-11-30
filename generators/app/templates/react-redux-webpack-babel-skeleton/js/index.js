@@ -1,16 +1,27 @@
+import 'babel-core/register'
 import 'babel-polyfill'
+
 import React from 'react'
 import { render } from 'react-dom'
 import configureStore from 'store/configureStore'
-import createRouter from 'router/createRouter'
-import Root from 'components/Root'
+import { Router, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
+import sagaMiddleware from 'middlewares/sagaMiddleware'
+import rootSaga from 'sagas'
+import routes from 'src/routes'
 
-const router = createRouter()
-const store = configureStore(router)
 
-router.start((err, state) => {
-  render(
-    <Root store={store} router={router} />,
-    document.getElementById('app')
-  )
-})
+const store = configureStore({ history: browserHistory }, window.__initialState__)
+
+const history = syncHistoryWithStore(browserHistory, store)
+window.Store = store
+
+sagaMiddleware.run(rootSaga)
+
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
+)
