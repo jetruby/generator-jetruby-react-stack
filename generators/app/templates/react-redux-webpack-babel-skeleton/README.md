@@ -38,7 +38,7 @@ TODO
 
 # Mock GraphQL server
 
-In the directory `mock-server`
+In the directory `graphql-mock-server`
 
 ```sh
 npm i
@@ -47,6 +47,6 @@ npm i
 and then in project root directory start a mocking server by running
 
 ```sh
-npm run mock-graphql-server
+npm run graphql-mock-server
 ```
 This should be used in case when the back-end server is unavailable. It won't be able to replace a full back-end, but at least you can continue your work with on the client without 500 error.

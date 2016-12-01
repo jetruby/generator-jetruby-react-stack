@@ -14,7 +14,11 @@ configuration.plugins.push(
       'NODE_ENV': JSON.stringify("production"),
       'APP_ENV': JSON.stringify("production")
     }
-  })
+  }),
+  new webpack.EnvironmentPlugin([
+    "API_URL",
+    "CLIENT_URL"
+  ])
 )
 
 module.exports = universalWebpack.serverConfiguration(configuration, settings)

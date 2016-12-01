@@ -9,8 +9,10 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import sagaMiddleware from 'middlewares/sagaMiddleware'
 import rootSaga from 'sagas'
-import routes from 'src/routes'
+import { configureRoutes } from 'src/routes'
 
+import 'normalize.css'
+import 'styles/global.css'
 
 const store = configureStore({ history: browserHistory }, window.__initialState__)
 
@@ -21,7 +23,7 @@ sagaMiddleware.run(rootSaga)
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <Router history={history} routes={configureRoutes(store)} />
   </Provider>,
   document.getElementById('app')
 )

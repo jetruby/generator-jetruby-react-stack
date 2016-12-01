@@ -2,6 +2,7 @@ import 'isomorphic-fetch'
 import path from 'path'
 import http from 'http'
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import serialize from 'serialize-javascript'
 import util from 'util'
 
@@ -9,7 +10,7 @@ import React                                         from 'react'
 import { createMemoryHistory, match, RouterContext } from 'react-router'
 import { renderToString }                            from 'react-dom/server'
 import { Provider }                                  from 'react-redux'
-import routes                                        from 'src/routes'
+import { configureRoutes }                           from 'src/routes'
 import configureStore                                from 'store/configureStore.js'
 import { syncHistoryWithStore }                      from 'react-router-redux'
 import sagaMiddleware                                from 'middlewares/sagaMiddleware'
@@ -21,9 +22,11 @@ import ApolloClient, { createNetworkInterface }      from 'apollo-client'
 import { ApolloProvider }                            from 'react-apollo'
 import { getDataFromTree }                           from 'react-apollo/server'
 
+
 const HTML = ({ content, store, apolloInitialState, jsBuildPath, cssBuildPath }) => (
   <html lang="en">
     <head>
+      <title>App</title>
       <link href={`${config.CLIENT_HOST}/${cssBuildPath}`} rel="stylesheet" />
     </head>
     <body>
@@ -48,12 +51,19 @@ export default function (parameters) {
 
   app.use(express.static('dist'))
   app.use(express.static('public'))
+  app.use(cookieParser())
 
   app.use((req, res) => {
     const networkInterface = createNetworkInterface({
       uri: config.API_HOST,
-      credentials: 'same-origin',
-      headers: req.headers
+      opts: {
+        credentials: 'include',
+        // transfer ONLY cookies (https://github.com/matthew-andrews/isomorphic-fetch/issues/83)
+        headers: {
+          cookie: req.headers.cookie
+        },
+        transportBatching: true
+      }
     })
 
     // networkInterface.use([{
@@ -70,14 +80,20 @@ export default function (parameters) {
 
     const memoryHistory = createMemoryHistory(req.url)
 
+    const storeInitialState = {
+      currentUser: {
+        isLoggedIn: !!req.cookies.token // We might need something more clever than checking the token presence.
+      }
+    }
+
     const store = configureStore({
       history: memoryHistory,
       apolloClient: client
-    })
+    }, storeInitialState)
 
     const history = syncHistoryWithStore(memoryHistory, store)
 
-    match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    match({ history, routes: configureRoutes(store), location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         res.status(500).send(error.message)
       } else if (redirectLocation) {

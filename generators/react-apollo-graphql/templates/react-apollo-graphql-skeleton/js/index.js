@@ -1,14 +1,19 @@
+import 'babel-core/register'
+import 'babel-polyfill'
+
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, browserHistory, hashHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import rootSaga from 'sagas'
-import sagaMiddleware from 'middlewares/sagaMiddleware'
 import { ApolloProvider } from 'react-apollo'
+import { syncHistoryWithStore } from 'react-router-redux'
+import sagaMiddleware from 'middlewares/sagaMiddleware'
+import rootSaga from 'sagas'
 import { client } from 'apollo'
 import configureStore from 'store/configureStore'
-import routes from 'src/routes'
+import { configureRoutes } from 'src/routes'
 
+import 'normalize.css'
+import 'styles/global.css'
 
 const store = configureStore({
   history: browserHistory,
@@ -22,7 +27,7 @@ sagaMiddleware.run(rootSaga)
 
 render(
   <ApolloProvider store={store} client={client}>
-    <Router history={history} routes={routes} />
+    <Router history={history} routes={configureRoutes(store)} />
   </ApolloProvider>,
   document.getElementById('app')
 )

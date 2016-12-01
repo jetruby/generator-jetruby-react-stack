@@ -1,15 +1,16 @@
 import 'isomorphic-fetch'
-import path from 'path'
-import http from 'http'
-import express from 'express'
-import serialize from 'serialize-javascript'
-import util from 'util'
+import path                                          from 'path'
+import http                                          from 'http'
+import express                                       from 'express'
+import cookieParser                                  from 'cookie-parser'
+import serialize                                     from 'serialize-javascript'
+import util                                          from 'util'
 
 import React                                         from 'react'
 import { createMemoryHistory, match, RouterContext } from 'react-router'
 import { renderToString }                            from 'react-dom/server'
 import { Provider }                                  from 'react-redux'
-import routes                                        from 'src/routes'
+import { configureRoutes }                           from 'src/routes'
 import configureStore                                from 'store/configureStore.js'
 import { syncHistoryWithStore }                      from 'react-router-redux'
 import sagaMiddleware                                from 'middlewares/sagaMiddleware'
@@ -21,6 +22,12 @@ import config                                        from 'constants/config'
 const HTML = ({ content, store, jsBuildPath, cssBuildPath }) => (
   <html lang="en">
     <head>
+      <title>App!</title>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
       <link href={`${config.CLIENT_HOST}/${cssBuildPath}`} rel="stylesheet" />
     </head>
     <body>
@@ -44,17 +51,24 @@ export default function (parameters) {
 
   app.use(express.static('dist'))
   app.use(express.static('public'))
+  app.use(cookieParser())
 
   app.use((req, res) => {
     const memoryHistory = createMemoryHistory(req.url)
 
+    const storeInitialState = {
+      currentUser: {
+        isLoggedIn: !!req.cookies.token // We might need something more clever than checking the token presence.
+      }
+    }
+
     const store = configureStore({
       history: memoryHistory
-    })
+    }, storeInitialState)
 
     const history = syncHistoryWithStore(memoryHistory, store)
 
-    match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    match({ history, routes: configureRoutes(store), location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         res.status(500).send(error.message)
       } else if (redirectLocation) {
@@ -73,6 +87,7 @@ export default function (parameters) {
 
         rootTask.done.then(() => {
           const content = renderToString(RootComponent)
+
           const raw = renderToString(
             <HTML
               content={content}

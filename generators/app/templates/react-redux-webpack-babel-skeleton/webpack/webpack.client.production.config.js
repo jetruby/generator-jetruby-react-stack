@@ -7,16 +7,15 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 configuration.module.loaders.push(
   { test: /\.css$/, loader: ExtractTextPlugin.extract(
-      'style-loader',
-      'css-loader',
-      'postcss-loader'
-    )
-  },
+    ['style-loader'],
+    ['css-loader', 'postcss-loader']
+  )},
   { test: /\.pcss$/, loader: ExtractTextPlugin.extract(
-      'style-loader',
+    ['style-loader'],
+    [
       'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
       'postcss-loader'
-    )
+    ]) 
   }
 )
 configuration.plugins.push(
@@ -26,7 +25,11 @@ configuration.plugins.push(
       'NODE_ENV': JSON.stringify("production"),
       'APP_ENV': JSON.stringify("production")
     }
-  })
+  }),
+  new webpack.EnvironmentPlugin([
+    "API_URL",
+    "CLIENT_URL"
+  ])
 )
 
 module.exports = universalWebpack.clientConfiguration(configuration, settings)
