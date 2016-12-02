@@ -88,7 +88,8 @@ module.exports = generators.Base.extend({
       "production-build-server": "webpack --config webpack/webpack.server.production.config.js --colors --display-error-details",
       "production-build": "npm-run-all --parallel production-build-client production-build-server",
       "production": "node ./start-server",
-      "graphql-mock-server": "node ./graphql-mock-server/server.js"
+      "graphql-mock-server": "node ./graphql-mock-server/server.js",
+      "browsersync": "browser-sync start --proxy 'localhost:3000' --port 3002 --ui-port 3003"
     };
 
     var packageSettings = {
@@ -173,6 +174,7 @@ module.exports = generators.Base.extend({
     this.npmInstall(dependencies, { 'save': true });
 
     var devDependencies = [
+      'browser-sync',
       'webpack',
       'webpack-dev-server',
       'babel-core',
@@ -200,7 +202,13 @@ module.exports = generators.Base.extend({
       'eslint-loader@^1.6.0',
       'eslint-plugin-import@^1.16.0',
       'eslint-plugin-jsx-a11y@^2.2.3',
-      'eslint-plugin-react@^6.4.1'
+      'eslint-plugin-react@^6.4.1',
+      'redux-devtools',
+      'redux-devtools-dispatch',
+      'redux-devtools-dock-monitor',
+      'redux-devtools-instrument',
+      'redux-devtools-log-monitor',
+      'redux-devtools-multiple-monitors'
     ];
 
     var testDependencies = [

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DevTools from 'containers/DevTools'
 import Nav from 'components/Nav'
 
 class App extends Component {
@@ -8,6 +9,12 @@ class App extends Component {
         <Nav />
 
         { this.props.children }
+
+        {
+          process.env.APP_ENV === 'development'
+          ? <DevTools />
+          : ''
+        }
       </div>
     )
   }
