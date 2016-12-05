@@ -10,7 +10,9 @@
     "yeoman-generator"
   ],
   "files": [
-    "generators/app"
+    "generators/app",
+    "generators/react-apollo-graphql",
+    "generators/graphql-mock-server"
   ],
   "author": "",
   "license": "ISC",
