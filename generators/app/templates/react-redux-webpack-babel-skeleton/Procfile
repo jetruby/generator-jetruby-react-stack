@@ -1,3 +1,2 @@
 client: npm run dev-build
 server: npm run dev-serve
-browsersync: npm run browsersync

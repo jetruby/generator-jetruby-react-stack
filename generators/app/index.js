@@ -130,6 +130,7 @@ module.exports = generators.Base.extend({
       'extract-text-webpack-plugin',
       'universal-webpack',
       'nodemon',
+      'express',
       'node-localstorage',
       'cookie-parser',
       'foreman',
