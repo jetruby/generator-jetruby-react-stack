@@ -16,7 +16,7 @@ module.exports = generators.Base.extend({
     this.log(chalk.bold.green('--------------------------------------------------------------------------------\n'));
     this.log(chalk.bold.yellow('This generator will walk you through installing a Babel, React, Redux, Webpack, GraphQl application.\n'));
 
-    this.composeWith('jetruby-react-stack1:react-apollo-graphql', { options: { rjs: true } });
+    this.composeWith('jetruby-react-stack:react-apollo-graphql', { options: { rjs: true } });
   },
   prompting: function() {
     var done = this.async();
