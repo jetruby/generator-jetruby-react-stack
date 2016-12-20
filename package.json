@@ -1,5 +1,5 @@
 {
-  "name": "generator-jetruby-react-stack1",
+  "name": "generator-jetruby-react-stack",
   "version": "1.0.0",
   "description": "Yeoman generator for React, Redux, Webpack",
   "main": "index.js",
